@@ -1,5 +1,6 @@
 <h1 align="center">Hi 👋, I'm Lakshya Lohani</h1>
 <h3 align="center">Dedicated Machine Learning Engineer with a knack for solving complex problems, automating processes, and leveraging big data for smart decision-making</h3>
+<h3>still updating my repos ,sorry ---my github is bugged RN</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=zenon-19&label=Profile%20views&color=0e75b6&style=flat" alt="zenon-19" /> </p>
 
