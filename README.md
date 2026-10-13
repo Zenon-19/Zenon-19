@@ -1,18 +1,266 @@
-# 💫 About Me:
-I'm a passionate AI & Data Science enthusiast, Web Developer, and MLOps expert. Currently, I'm focused on building innovative projects that combine cutting-edge technologies with practical applications. From designing AI systems to developing task management apps, I enjoy solving complex problems and creating impactful solutions.<br><br>🔭 Currently working on:<br><br>  Developing Lyra, my AI companion robot, with plans to integrate it into various real-world applications.<br><br>  Building Ikiru, a task management app that combines productivity tracking with AI-powered assistance.<br><br>💼 Side Project: CEO of ForgeByte Solutions, a digital marketing and automation agency leveraging AI and data-driven strategies to streamline business operations.<br><br>🌱 I’m currently learning:<br><br>  ROS 2<br><br>  Advanced AI and ML algorithms<br><br>  Cloud deployment strategies<br><br>Feel free to check out my projects below or connect with me if you’re interested in collaborating!
 
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║              GITHUB PROFILE README TEMPLATE                  ║
+║                                                              ║
+║  Replace all placeholders with your actual information.      ║
+║  Enable GitHub Actions for the contribution snake.           ║
+╚══════════════════════════════════════════════════════════════╝
+-->
 
-## 🌐 Socials:
-[![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:lakshyalohani1811@gmail.com) 
+<!-- Responsive Light/Dark Banner -->
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&color=0:EF93C4,50:F8BBD0,100:FF69B4&height=220&section=header&text=ZENON&fontSize=70&fontColor=ffffff&fontAlignY=38&desc=BUILD%20%E2%80%A2%20CREATE%20%E2%80%A2%20INNOVATE&descAlignY=58&descSize=16&animation=fadeIn">
+    <source media="(prefers-color-scheme: light)" srcset="https://capsule-render.vercel.app/api?type=waving&color=0:EF93C4,50:F8BBD0,100:FF69B4&height=220&section=header&text=ZENON&fontSize=70&fontColor=2D1B2E&fontAlignY=38&desc=BUILD%20%E2%80%A2%20CREATE%20%E2%80%A2%20INNOVATE&descAlignY=58&descSize=16&animation=fadeIn">
+    <img src="https://capsule-render.vercel.app/api?type=waving&color=0:EF93C4,50:F8BBD0,100:FF69B4&height=220&section=header&text=ZENON&fontSize=70&fontColor=ffffff&fontAlignY=38&desc=BUILD%20%E2%80%A2%20CREATE%20%E2%80%A2%20INNOVATE&descAlignY=58&descSize=16&animation=fadeIn" width="100%" alt="Zenon profile banner">
+  </picture>
+</div>
 
-# 💻 Tech Stack:
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white) ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) ![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white) ![ROS](https://img.shields.io/badge/ros-%230A0FF9.svg?style=for-the-badge&logo=ros&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white) ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white) ![AmazonDynamoDB](https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=for-the-badge&logo=Amazon%20DynamoDB&logoColor=white) ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white) ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black) ![mlflow](https://img.shields.io/badge/mlflow-%23d9ead3.svg?style=for-the-badge&logo=numpy&logoColor=blue) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-%233F4F75.svg?style=for-the-badge&logo=plotly&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Scipy](https://img.shields.io/badge/SciPy-%230C55A5.svg?style=for-the-badge&logo=scipy&logoColor=%white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white) ![GitLab CI](https://img.shields.io/badge/gitlab%20CI-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white) ![nVIDIA](https://img.shields.io/badge/nVIDIA-%2376B900.svg?style=for-the-badge&logo=nVIDIA&logoColor=white) ![Unity](https://img.shields.io/badge/unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white)
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=Zenon-19&theme=dark&hide_border=false&include_all_commits=false&count_private=false)<br/>
-![](https://nirzak-streak-stats.vercel.app/?user=Zenon-19&theme=dark&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=Zenon-19&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+<!-- Main Introduction -->
+<div align="center">
+
+# Hey there, I'm Lakshya or [Zenon] 👋
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=19&duration=3000&pause=900&color=EF93C4&center=true&vCenter=true&multiline=false&repeat=true&width=650&height=55&lines=Software+Engineer+%7C+AI%2FML+Enthusiast;Building+Ideas+Into+Real+Products;Full-Stack+Developer+%7C+Problem+Solver;Exploring+AI%2C+Automation+%26+Innovation;Always+Learning.+Always+Building." alt="Animated typing introduction">
+
+<p>
+  <em>Turning curiosity into code and ideas into meaningful digital experiences.</em>
+</p>
+
+<!-- Profile Badges -->
+<p>
+  <a href="https://github.com/[Zenon-19]">
+    <img src="https://img.shields.io/github/followers/[Zenon-19]?label=Followers&style=for-the-badge&logo=github&logoColor=white&color=EF93C4&labelColor=171717" alt="GitHub followers">
+  </a>
+  <a href="https://github.com/[Zenon-19]?tab=repositories">
+    <img src="https://img.shields.io/github/stars/[Zenon-19]?label=Stars&style=for-the-badge&logo=github&logoColor=white&color=F8BBD0&labelColor=171717" alt="GitHub stars">
+  </a>
+  <img src="https://komarev.com/ghpvc/?username=[Zenon-19]&label=Profile+Views&color=FF69B4&style=for-the-badge" alt="Profile views">
+</p>
+
+<p>
+  <a href="#about-me">About</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#github-statistics">Statistics</a> •
+  <a href="#connect-with-me">Connect</a>
+</p>
+
+</div>
 
 ---
-[![](https://visitcount.itsvg.in/api?id=Zenon-19&icon=7&color=0)](https://visitcount.itsvg.in)
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+<!-- About Me -->
+<h2 align="center">✦ About Me ✦</h2>
+
+<table>
+  <tr>
+    <td width="65%" valign="middle">
+      <h3>Hey, welcome to my corner of GitHub! 💗</h3>
+      <p>
+        I'm <strong>[Lakshya Lohani]</strong>, also known as
+        <strong>[Zenon]</strong> — a developer passionate about building
+        elegant, scalable, and intelligent digital products.
+      </p>
+      <p>
+        I enjoy working across the stack, exploring artificial intelligence,
+        experimenting with automation, and transforming complex problems
+        into simple, thoughtful solutions.
+      </p>
+      <p>✦ Currently exploring <strong>[AI/ML & Full-Stack Development]</strong></p>
+      <p>✦ Building <strong>[Innovative Projects & SaaS Products]</strong></p>
+      <p>✦ Learning <strong>[New Technologies & System Design]</strong></p>
+      <p>✦ Interested in <strong>[Open Source & Collaboration]</strong></p>
+      <p>✦ Philosophy: <em>Build with purpose. Learn without limits.</em></p>
+    </td>
+    <td width="35%" align="center" valign="middle">
+      <img src="https://github-readme-stats.vercel.app/api?username=[Zenon-19]&show_icons=true&hide_border=true&bg_color=0D1117&title_color=EF93C4&icon_color=FF69B4&text_color=F8BBD0&rank_icon=github" width="100%" alt="GitHub profile overview">
+    </td>
+  </tr>
+</table>
+
+---
+
+<!-- Tech Stack -->
+<h2 align="center" id="tech-stack">✦ Tech Stack & Tools ✦</h2>
+
+<div align="center">
+
+<p><strong>Languages</strong></p>
+<img src="https://skillicons.dev/icons?i=python,typescript,javascript,java,cpp&theme=dark" alt="Programming languages">
+
+<p><strong>Frontend Development</strong></p>
+<img src="https://skillicons.dev/icons?i=react,nextjs,html,css,tailwind,figma&theme=dark" alt="Frontend technologies">
+
+<p><strong>Backend Development</strong></p>
+<img src="https://skillicons.dev/icons?i=nodejs,express,fastapi,flask&theme=dark" alt="Backend technologies">
+
+<p><strong>AI / Machine Learning</strong></p>
+<img src="https://skillicons.dev/icons?i=tensorflow,pytorch,sklearn&theme=dark" alt="AI and machine learning technologies">
+
+<p><strong>Databases & Infrastructure</strong></p>
+<img src="https://skillicons.dev/icons?i=postgres,mongodb,mysql,supabase,firebase&theme=dark" alt="Database technologies">
+
+<p><strong>DevOps & Developer Tools</strong></p>
+<img src="https://skillicons.dev/icons?i=git,github,docker,aws,vercel,linux,vscode&theme=dark" alt="Developer tools">
+
+<p>
+  <em>Always expanding my toolkit, one project at a time.</em>
+</p>
+
+</div>
+
+---
+
+<!-- GitHub Statistics -->
+<h2 align="center" id="github-statistics">✦ GitHub Statistics ✦</h2>
+
+<div align="center">
+
+<!-- Profile Stats -->
+<a href="https://github.com/[Zenon-19]">
+  <img height="180" src="https://github-readme-stats.vercel.app/api?username=[Zenon-19]&show_icons=true&count_private=true&hide_border=true&bg_color=0D1117&title_color=EF93C4&icon_color=FF69B4&text_color=F8BBD0&ring_color=FF69B4" alt="GitHub statistics">
+</a>
+
+<!-- Top Languages -->
+<a href="https://github.com/[Zenon-19]">
+  <img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=[Zenon-19]&layout=compact&langs_count=8&hide_border=true&bg_color=0D1117&title_color=EF93C4&text_color=F8BBD0" alt="Most used programming languages">
+</a>
+
+<br><br>
+
+<!-- GitHub Streak -->
+<img src="https://streak-stats.demolab.com?user=[Zenon-19]&hide_border=true&background=0D1117&stroke=EF93C4&ring=FF69B4&fire=FF69B4&currStreakLabel=F8BBD0&sideLabels=F8BBD0&currStreakNum=FFFFFF&sideNums=FFFFFF&dates=AAAAAA" width="80%" alt="GitHub contribution streak">
+
+<br><br>
+
+<!-- Activity Graph -->
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=[Zenon-19]&bg_color=0D1117&color=F8BBD0&line=FF69B4&point=EF93C4&area=true&area_color=EF93C4&hide_border=true&custom_title=Contribution%20Activity" width="100%" alt="GitHub contribution activity graph">
+
+</div>
+
+---
+
+<!-- Contribution Snake -->
+<h2 align="center">✦ Contribution Garden ✦</h2>
+
+<div align="center">
+
+<p>
+  <em>Every contribution is another step forward. Keep growing. 🌸</em>
+</p>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/[Zenon-19]/[Zenon-19]/output/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/[Zenon-19]/[Zenon-19]/output/github-contribution-grid-snake.svg">
+  <img alt="Animated contribution snake" src="https://raw.githubusercontent.com/[Zenon-19]/[Zenon-19]/output/github-contribution-grid-snake.svg" width="100%">
+</picture>
+
+</div>
+
+<!--
+GITHUB ACTION SETUP — REQUIRED FOR THE SNAKE ANIMATION
+
+1. Create a repository with the EXACT same name as your GitHub username.
+2. Create the file:
+   .github/workflows/snake.yml
+3. Add the workflow below.
+4. Enable GitHub Actions and allow workflow permissions to write to
+   repository contents.
+5. Run the workflow manually once or wait for the scheduled run.
+
+--- BEGIN .github/workflows/snake.yml ---
+
+name: Generate Contribution Snake
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Generate contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg?color_snake=FF69B4&color_dots=%2316101A,%23F8BBD0,%23EF93C4,%23FF69B4,%23D63384
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=FF69B4&color_dots=%2316101A,%23F8BBD0,%23EF93C4,%23FF69B4,%23D63384
+
+      - name: Publish generated files
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+--- END .github/workflows/snake.yml ---
+-->
+
+---
+
+<!-- Connect -->
+<h2 align="center" id="connect-with-me">✦ Let's Connect ✦</h2>
+
+<div align="center">
+
+<p>
+  <em>Have an interesting idea, a project to build, or just want to talk tech? My inbox is open.</em>
+</p>
+
+<a href="https://www.linkedin.com/in/[your-linkedin-username]/">
+  <img src="https://img.shields.io/badge/LinkedIn-Connect-EF93C4?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=171717" alt="LinkedIn">
+</a>
+<a href="https://x.com/[your-x-username]">
+  <img src="https://img.shields.io/badge/X-Follow-F8BBD0?style=for-the-badge&logo=x&logoColor=white&labelColor=171717" alt="X">
+</a>
+<a href="https://www.instagram.com/[your-instagram-username]/">
+  <img src="https://img.shields.io/badge/Instagram-Follow-FF69B4?style=for-the-badge&logo=instagram&logoColor=white&labelColor=171717" alt="Instagram">
+</a>
+<a href="https://www.tiktok.com/@[your-tiktok-username]">
+  <img src="https://img.shields.io/badge/TikTok-Follow-EF93C4?style=for-the-badge&logo=tiktok&logoColor=white&labelColor=171717" alt="TikTok">
+</a>
+<a href="https://www.youtube.com/@[your-youtube-username]">
+  <img src="https://img.shields.io/badge/YouTube-Subscribe-FF69B4?style=for-the-badge&logo=youtube&logoColor=white&labelColor=171717" alt="YouTube">
+</a>
+<a href="mailto:[your-email@example.com]">
+  <img src="https://img.shields.io/badge/Email-Say%20Hello-F8BBD0?style=for-the-badge&logo=gmail&logoColor=white&labelColor=171717" alt="Email">
+</a>
+
+<br><br>
+
+<a href="https://github.com/[Zenon-19]">
+  <img src="https://img.shields.io/badge/Open%20Source-Always%20Welcome-171717?style=flat-square&logo=github&logoColor=FF69B4" alt="Open source">
+</a>
+
+</div>
+
+---
+
+<!-- Footer -->
+<div align="center">
+
+<h3>「 Dream it. Design it. Develop it. 」</h3>
+
+<p>
+  <em>Thanks for stopping by. Keep creating things that matter. 💗</em>
+</p>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:EF93C4,50:F8BBD0,100:FF69B4&height=130&section=footer" width="100%" alt="Pink waving footer">
+
+</div>
+
+<!-- End of README -->
+
