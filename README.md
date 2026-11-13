@@ -6,6 +6,10 @@
 <a href="mailto:lakshyalohani1811@gmail.com"><img src="cards/tile-3.svg" width="32.5%" alt="Email: lakshyalohani1811@gmail.com"></a>
 </p>
 
+<p align="center"><img src="cards/about.svg" width="100%" alt="About Lakshya Lohani: I&#x27;m Lakshya Lohani, also known as Zenon - a founder and developer building software products that solve real problems. I work across full-stack development, AI integrations and backend systems, and enjoy taking an idea to a working product with clean interfaces and maintainable engineering."></p>
+
+<p align="center"><img src="cards/stack.svg" width="100%" alt="Tech stack"></p>
+
 <p align="center"><img src="cards/contributions.svg" width="100%" alt="Contributions per month, streak, active days and busiest day"></p>
 
 <p align="center"><a href="https://github.com/Zenon-19/Flownest"><img src="cards/repo-1.svg" width="100%" alt="Flownest: AI-enabled CRM and client onboarding platform."></a></p>
