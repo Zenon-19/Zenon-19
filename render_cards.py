@@ -29,18 +29,17 @@ TAGLINE = ("Building thoughtful software, exploring AI, and turning ideas "
            "into useful products.")
 SITE = "https://vibe-coding-portfolio.ai.studio"
 
-# Palette. bg is the site's <meta theme-color>. The rest are PLACEHOLDERS until
-# they are matched to the site's CSS - change `accent` to your brand colour and
-# the contribution graph, bars, rings and links all follow.
+# Palette, taken from the colours your current README already uses.
 THEME = dict(
-    bg="#282828",        # card background   (site theme-color)
-    border="#3D3D3D",
-    ink="#F3EEE4",       # primary text
-    muted="#A39E94",     # secondary text
-    accent="#E9C46A",    # BRAND COLOUR
+    bg="#282828",        # card background
+    border="#414141",
+    ink="#F4F0E8",       # primary text
+    muted="#96948E",     # secondary text
+    accent="#F15534",    # BRAND COLOUR
 )
 
-# Fonts: drop your site's font files in fonts/ as display.ttf, body.ttf, mono.ttf
+# Fonts: your README's typing banner uses JetBrains Mono, so use it for
+# mono.ttf. Drop your site's font files in fonts/ as display.ttf, body.ttf, mono.ttf
 # (.otf also fine). If missing, a system font is used and a warning is printed.
 FONT_ROLES = ("display", "body", "mono")
 CSS_STACK = {
@@ -53,8 +52,8 @@ SYSTEM_FALLBACK = {"display": "serif", "body": "sans", "mono": "monospace"}  # f
 # Three tiles: (title, subtitle, url)
 TILES = [
     ("Portfolio", "vibe-coding-portfolio.ai.studio", SITE),
-    ("Projects", "github.com/Zenon-19", f"https://github.com/{USER}?tab=repositories"),
-    ("Follow", "@Zenon-19 on GitHub", f"https://github.com/{USER}"),
+    ("LinkedIn", "in/lakshyalohani", "https://www.linkedin.com/in/lakshyalohani"),
+    ("Email", "lakshyalohani1811@gmail.com", "mailto:lakshyalohani1811@gmail.com"),
 ]
 
 # Optional portrait for the hero (square-ish PNG/JPG, keep it under ~150 KB).
