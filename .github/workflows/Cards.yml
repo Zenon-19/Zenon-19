@@ -1,0 +1,79 @@
+name: cards
+
+on:
+  schedule:
+    - cron: "17 0 * * *"        # daily, 00:17 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [render_cards.py, fonts/**, assets/**]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cards
+  cancel-in-progress: true
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install fonttools
+        run: pip install fonttools
+
+      # 1. Refresh contribution data -> data/contributions.json
+      #    Add a PAT as the GH_PAT secret if you want private contributions counted.
+      - name: Refresh contribution data
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          LOGIN: Zenon-19
+        run: |
+          mkdir -p data
+          gh api graphql -f login="$LOGIN" -f query='
+            fragment R on Repository {
+              name description url stargazerCount forkCount
+              primaryLanguage { name color }
+            }
+            query($login: String!) {
+              user(login: $login) {
+                contributionsCollection { contributionCalendar {
+                  totalContributions
+                  weeks { contributionDays { date contributionCount } }
+                } }
+                pinnedItems(first: 6, types: REPOSITORY) { nodes { ...R } }
+                repositories(first: 50, ownerAffiliations: OWNER, privacy: PUBLIC,
+                             orderBy: {field: PUSHED_AT, direction: DESC}) { nodes { ...R } }
+              }
+            }' > raw.json
+          jq --arg login "$LOGIN" --arg now "$(date -u +%FT%TZ)" '
+            def r: {name, description, url, stars: .stargazerCount, forks: .forkCount,
+                    language: .primaryLanguage.name, color: .primaryLanguage.color};
+            .data.user as $u | {
+              login: $login, generated: $now,
+              total: $u.contributionsCollection.contributionCalendar.totalContributions,
+              days: [$u.contributionsCollection.contributionCalendar.weeks[].contributionDays[]
+                     | {date, count: .contributionCount}],
+              pinned: [$u.pinnedItems.nodes[] | r],
+              recent: [$u.repositories.nodes[] | r]
+            }' raw.json > data/contributions.json
+          rm raw.json
+
+      # 2. Render the cards (and README.md) from that data
+      - name: Render cards
+        run: python render_cards.py
+
+      # 3. Commit whatever changed
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data cards README.md
+          git diff --staged --quiet || git commit -m "chore: refresh cards [skip ci]"
+          git push
