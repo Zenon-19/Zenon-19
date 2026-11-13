@@ -2,8 +2,8 @@
 
 <p align="center">
 <a href="https://vibe-coding-portfolio.ai.studio"><img src="cards/tile-1.svg" width="32.5%" alt="Portfolio: vibe-coding-portfolio.ai.studio"></a>
-<a href="https://github.com/Zenon-19?tab=repositories"><img src="cards/tile-2.svg" width="32.5%" alt="Projects: github.com/Zenon-19"></a>
-<a href="https://github.com/Zenon-19"><img src="cards/tile-3.svg" width="32.5%" alt="Follow: @Zenon-19 on GitHub"></a>
+<a href="https://www.linkedin.com/in/lakshyalohani"><img src="cards/tile-2.svg" width="32.5%" alt="LinkedIn: in/lakshyalohani"></a>
+<a href="mailto:lakshyalohani1811@gmail.com"><img src="cards/tile-3.svg" width="32.5%" alt="Email: lakshyalohani1811@gmail.com"></a>
 </p>
 
 <p align="center"><img src="cards/contributions.svg" width="100%" alt="Contributions per month, streak, active days and busiest day"></p>
