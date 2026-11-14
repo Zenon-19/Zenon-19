@@ -29,13 +29,15 @@ TAGLINE = ("Building thoughtful software, exploring AI, and turning ideas "
            "into useful products.")
 SITE = "https://vibe-coding-portfolio.ai.studio"
 
-# Palette, taken from the colours your current README already uses.
+# Palette, sampled from your workspace picture and kept to two colours:
+# sunset amber (accent) and dusk lavender (the snake). Everything else is neutral.
 THEME = dict(
-    bg="#282828",        # card background
-    border="#414141",
-    ink="#F4F0E8",       # primary text
-    muted="#96948E",     # secondary text
-    accent="#F15534",    # BRAND COLOUR
+    bg="#17120F",        # warm near-black (hoodie / shelves)
+    border="#2F251D",
+    ink="#F3E6D3",       # paper cream (notebook)
+    muted="#A89886",     # warm taupe
+    accent="#F2A65A",    # sunset amber  (BRAND COLOUR)
+    dusk="#B69CD9",      # sky lavender  (snake)
 )
 
 # Fonts: your README's typing banner uses JetBrains Mono, so use it for
@@ -95,6 +97,9 @@ MAX_REPOS = 6
 
 ROOT = pathlib.Path(__file__).resolve().parent
 STATIC = os.environ.get("STATIC") == "1"
+# RESPECT_REDUCED_MOTION=0 is for testing only: it lets everything play even if
+# your OS asks for reduced motion. Leave it on for the real cards.
+RM = os.environ.get("RESPECT_REDUCED_MOTION", "1") != "0"
 OUT = ROOT / ("cards-static" if STATIC else "cards")
 DATA = pathlib.Path(os.environ.get("DATA", ROOT / "data" / "contributions.json"))
 T = THEME
@@ -288,7 +293,7 @@ class Card:
                         f"src:url(data:font/woff;base64,{b64}) format('woff');}}")
             css += f".{CLS[role]}{{font-family:'Z{role}',{CSS_STACK[role]}}}"
         if not STATIC:
-            css += ANIM_CSS
+            css += ANIM_CSS if RM else ANIM_CSS.split("@media")[0]
         defs = f"<defs>{''.join(self.defs)}</defs>" if self.defs else ""
         w, h = self.w, self.h
         return (
@@ -346,7 +351,7 @@ def pick_repos(data):
 # -------------------------------------------------------------------- cards --
 def card_hero(base):
     has_portrait = PORTRAIT.exists()
-    c = Card("hero", W, 228, f"{NAME}, {EYEBROW.title()}. {TAGLINE}", base)
+    c = Card("hero", W, 214, f"{NAME}, {EYEBROW.title()}. {TAGLINE}", base)
     L = 44
     maxw = W - 2 * L - (190 if has_portrait else 0)
 
@@ -369,10 +374,9 @@ def card_hero(base):
     d = c.d()
     for i, line in enumerate(wrap("body", TAGLINE, 16, maxw, 2)):
         c.add(c.text(L, 166 + i * 23, line, "body", 16, T["muted"], d=d + i * 0.06))
-    c.add(c.grow(L, 204, 56, 3, T["accent"], c.d()))
 
     if has_portrait:
-        cx, cy, r = W - L - 78, 114, 78
+        cx, cy, r = W - L - 74, 107, 74
         mime = "image/jpeg" if PORTRAIT.suffix.lower() in (".jpg", ".jpeg") else "image/png"
         b64 = base64.b64encode(PORTRAIT.read_bytes()).decode()
         c.defs.append(f'<clipPath id="pc"><circle cx="{cx}" cy="{cy}" r="{r - 8}"/></clipPath>')
@@ -604,7 +608,7 @@ def card_graph(days, total, base):
 
     nz = sorted(n for _, n in days if n > 0)
     q = [nz[int(len(nz) * f)] for f in (0.25, 0.5, 0.75)] if nz else [1, 2, 3]
-    ramp = [mix(T["bg"], "#FFFFFF", 0.07)] + [mix(T["bg"], T["accent"], t) for t in (0.3, 0.55, 0.78, 1.0)]
+    ramp = [mix(T["bg"], T["ink"], 0.08)] + [mix(T["bg"], T["accent"], t) for t in (0.3, 0.55, 0.78, 1.0)]
 
     def level(n):
         if n == 0:
@@ -623,7 +627,7 @@ def card_graph(days, total, base):
     for col in range(ncols):
         rows = sorted(r for (cc, r) in cells if cc == col)
         path += [(col, r) for r in (rows if col % 2 == 0 else rows[::-1])]
-    N, L, PAUSE, STEP = len(path), 5, 30, 0.06
+    N, L, PAUSE, STEP = len(path), 9, 30, 0.07
     S = N + L + PAUSE                            # steps in one loop
     DUR = round(S * STEP, 2)
     t0 = c.d(0.0, 0.1)
@@ -635,7 +639,7 @@ def card_graph(days, total, base):
         base = f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" rx="3" fill="{colr}"'
         still_cols.setdefault(col, []).append(base + "/>")
         if n > 0:                                # the snake eats active days
-            t = round((eat_at[(col, row)] + 0.5) / S, 4)
+            t = max(round(eat_at[(col, row)] / (S - 1), 4), 0.0005)
             smil_cols.setdefault(col, []).append(
                 base + f'><animate attributeName="fill" values="{colr};{ramp[0]}" '
                 f'keyTimes="0;{t}" calcMode="discrete" dur="{DUR}s" begin="{begin}s" '
@@ -646,27 +650,62 @@ def card_graph(days, total, base):
         c.add(c.g(Card.dual("".join(smil_cols[col]), "".join(still_cols[col])),
                   round(t0 + col * 0.014, 3)))
 
-    # --- snake (SMIL only; discrete steps, one cell per STEP seconds) --------
-    def track(k, axis):
-        vals = []
-        for s in range(S):
-            j = s - k
-            vals.append(str(cells[path[j]][axis]) if 0 <= j < N else "-40")
-        return ";".join(vals)
+    # --- snake ----------------------------------------------------------------
+    # One translate track per body segment, interpolated linearly so it glides from
+    # cell to cell. Segment k trails the head by k steps. The head carries eyes and a
+    # flicking tongue, and turns to face the way it is travelling.
+    R = cell / 2
+    centre = lambda p: (cells[p][0] + R, cells[p][1] + R)
 
-    snake, parked = [], []
-    for k in range(L):
-        fill = T["ink"] if k == 0 else mix(T["ink"], T["bg"], 0.18 * k)
-        snake.append(
-            f'<rect x="-40" y="-40" width="{cell}" height="{cell}" rx="3" fill="{fill}">'
-            f'<animate attributeName="x" values="{track(k, 0)}" calcMode="discrete" '
-            f'dur="{DUR}s" begin="{begin}s" repeatCount="indefinite"/>'
-            f'<animate attributeName="y" values="{track(k, 1)}" calcMode="discrete" '
-            f'dur="{DUR}s" begin="{begin}s" repeatCount="indefinite"/></rect>')
-        px, py = cells[path[N // 3 - k]][0], cells[path[N // 3 - k]][1]
-        parked.append(f'<rect x="{px}" y="{py}" width="{cell}" height="{cell}" rx="3" fill="{fill}"/>')
-    # STATIC=1 screenshots show the snake mid-grid; reduced-motion shows no snake
-    c.add(Card.dual("".join(snake), "".join(parked) if STATIC else ""))
+    def radius(k):
+        return R * 1.12 if k == 0 else R * max(0.55, 1 - 0.055 * k)
+
+    def colour(k):
+        return T["dusk"] if k == 0 else mix(T["dusk"], T["bg"], min(0.8, 0.09 * k))
+
+    def face(r, flick):
+        eye = f'fill="{T["bg"]}"'
+        tongue_anim = ('<animate attributeName="opacity" values="1;0;1" dur=".6s" '
+                       'repeatCount="indefinite"/>') if flick else ""
+        return (f'<circle cx="{r * 0.38:.1f}" cy="{-r * 0.42:.1f}" r="{r * 0.2:.1f}" {eye}/>'
+                f'<circle cx="{r * 0.38:.1f}" cy="{r * 0.42:.1f}" r="{r * 0.2:.1f}" {eye}/>'
+                f'<path d="M{r:.1f} 0 h3.5 l2.5 -1.8 m-2.5 1.8 l2.5 1.8" fill="none" '
+                f'stroke="{T["accent"]}" stroke-width="1" stroke-linecap="round">{tongue_anim}</path>')
+
+    def heading(j):                              # degrees, direction of travel at path[j]
+        p, q = (path[j], path[j + 1]) if j + 1 < N else (path[j - 1], path[j])
+        return round(math.degrees(math.atan2(cells[q][1] - cells[p][1], cells[q][0] - cells[p][0])))
+
+    timing = f'dur="{DUR}s" begin="{begin}s" repeatCount="indefinite"'
+
+    def segment(k):
+        pts = []
+        for st in range(S):
+            x, y = centre(path[min(max(st - k, 0), N - 1)])
+            pts.append(f"{x:.1f} {y:.1f}")
+        a_, b_ = round((k + 0.001) / S, 4), round((N + k) / S, 4)
+        r = radius(k)
+        inner = f'<circle r="{r:.1f}" fill="{colour(k)}"/>'
+        if k == 0:
+            angles = ";".join(str(heading(min(st, N - 1))) for st in range(S))
+            inner += (f'<g><animateTransform attributeName="transform" type="rotate" '
+                      f'values="{angles}" calcMode="discrete" {timing}/>{face(r, True)}</g>')
+        return (f'<g opacity="0"><animateTransform attributeName="transform" type="translate" '
+                f'values="{";".join(pts)}" {timing}/>'
+                f'<animate attributeName="opacity" values="0;1;0" keyTimes="0;{a_};{b_}" '
+                f'calcMode="discrete" {timing}/>{inner}</g>')
+
+    snake = "".join(segment(k) for k in reversed(range(L)))   # tail first, head on top
+
+    parked = []                                  # STATIC=1 screenshot: snake frozen mid-grid
+    for k in reversed(range(L)):
+        j = N // 3 - k
+        x, y = centre(path[j])
+        inner = f'<circle r="{radius(k):.1f}" fill="{colour(k)}"/>'
+        if k == 0:
+            inner += f'<g transform="rotate({heading(j)})">{face(radius(0), False)}</g>'
+        parked.append(f'<g transform="translate({x:.1f} {y:.1f})">{inner}</g>')
+    c.add(Card.dual(snake, "".join(parked) if STATIC else ""))
 
     last_m = -9
     for i, (d, _) in enumerate(days):
