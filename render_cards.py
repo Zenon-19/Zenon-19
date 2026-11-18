@@ -592,7 +592,7 @@ def card_stack(base):
     return c
 
 
-def card_graph(days, total, base):
+def card_graph(days, total, base, updated=""):
     c = Card("graph", W, 222, f"Contribution graph with an animated snake: {num(total)} contributions in the last year", base)
     c.add(c.text(40, 38, "Contribution graph", "display", 20, T["ink"], 600, d=c.d()))
     c.add(c.text(W - 40, 38, f"{num(total)} contributions in the last year", "body", 12, T["muted"],
@@ -622,27 +622,31 @@ def card_graph(days, total, base):
         cells[(col, row)] = (round(x0 + col * pitch, 1), round(ytop + row * pitch, 1),
                              ramp[level(n)], n)
 
-    # snake path: down column 0, up column 1, down column 2 ...
+    # The swordsman walks row by row (left to right, then right to left, ...) and
+    # cuts each active day just before he reaches it.
     path = []
-    for col in range(ncols):
-        rows = sorted(r for (cc, r) in cells if cc == col)
-        path += [(col, r) for r in (rows if col % 2 == 0 else rows[::-1])]
-    N, L, PAUSE, STEP = len(path), 9, 30, 0.07
-    S = N + L + PAUSE                            # steps in one loop
+    for row in range(7):
+        cs = sorted(cc for (cc, r) in cells if r == row)
+        path += [(cc, row) for cc in (cs if row % 2 == 0 else cs[::-1])]
+    N, PAUSE, STEP = len(path), 30, 0.07
+    S = N + PAUSE                                # steps in one loop
     DUR = round(S * STEP, 2)
     t0 = c.d(0.0, 0.1)
     begin = round(t0 + 1.2, 2)                   # starts once the grid has faded in
     eat_at = {p: k for k, p in enumerate(path)}
+    FLASH = 2 / (S - 1)                          # a cut block flashes cream, then is gone
+    ink, blank = T["ink"], ramp[0]
 
     still_cols, smil_cols = {}, {}
     for (col, row), (x, y, colr, n) in cells.items():
         base = f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" rx="3" fill="{colr}"'
         still_cols.setdefault(col, []).append(base + "/>")
-        if n > 0:                                # the snake eats active days
-            t = max(round(eat_at[(col, row)] / (S - 1), 4), 0.0005)
+        if n > 0:
+            t = max(round((eat_at[(col, row)] - 0.5) / (S - 1), 4), 0.0005)
+            t2 = round(min(t + FLASH, 0.999), 4)
             smil_cols.setdefault(col, []).append(
-                base + f'><animate attributeName="fill" values="{colr};{ramp[0]}" '
-                f'keyTimes="0;{t}" calcMode="discrete" dur="{DUR}s" begin="{begin}s" '
+                base + f'><animate attributeName="fill" values="{colr};{ink};{blank}" '
+                f'keyTimes="0;{t};{t2}" calcMode="discrete" dur="{DUR}s" begin="{begin}s" '
                 f'repeatCount="indefinite"/></rect>')
         else:
             smil_cols.setdefault(col, []).append(base + "/>")
@@ -650,62 +654,71 @@ def card_graph(days, total, base):
         c.add(c.g(Card.dual("".join(smil_cols[col]), "".join(still_cols[col])),
                   round(t0 + col * 0.014, 3)))
 
-    # --- snake ----------------------------------------------------------------
-    # One translate track per body segment, interpolated linearly so it glides from
-    # cell to cell. Segment k trails the head by k steps. The head carries eyes and a
-    # flicking tongue, and turns to face the way it is travelling.
-    R = cell / 2
-    centre = lambda p: (cells[p][0] + R, cells[p][1] + R)
+    # --- the swordsman ----------------------------------------------------------
+    # Sprite is drawn facing right with its feet at (0,0), about 18 units tall.
+    # Walking legs, bobbing body, fluttering headband, swinging sword + slash arc.
+    def sprite(animated):
+        dark = mix(T["dusk"], T["bg"], 0.45)
 
-    def radius(k):
-        return R * 1.12 if k == 0 else R * max(0.55, 1 - 0.055 * k)
+        def rg(inner, values, still_angle, dur="0.36s"):
+            if animated:
+                return (f'<g><animateTransform attributeName="transform" type="rotate" '
+                        f'values="{values}" dur="{dur}" repeatCount="indefinite"/>{inner}</g>')
+            return f'<g transform="rotate({still_angle})">{inner}</g>'
 
-    def colour(k):
-        return T["dusk"] if k == 0 else mix(T["dusk"], T["bg"], min(0.8, 0.09 * k))
-
-    def face(r, flick):
-        eye = f'fill="{T["bg"]}"'
-        tongue_anim = ('<animate attributeName="opacity" values="1;0;1" dur=".6s" '
-                       'repeatCount="indefinite"/>') if flick else ""
-        return (f'<circle cx="{r * 0.38:.1f}" cy="{-r * 0.42:.1f}" r="{r * 0.2:.1f}" {eye}/>'
-                f'<circle cx="{r * 0.38:.1f}" cy="{r * 0.42:.1f}" r="{r * 0.2:.1f}" {eye}/>'
-                f'<path d="M{r:.1f} 0 h3.5 l2.5 -1.8 m-2.5 1.8 l2.5 1.8" fill="none" '
-                f'stroke="{T["accent"]}" stroke-width="1" stroke-linecap="round">{tongue_anim}</path>')
-
-    def heading(j):                              # degrees, direction of travel at path[j]
-        p, q = (path[j], path[j + 1]) if j + 1 < N else (path[j - 1], path[j])
-        return round(math.degrees(math.atan2(cells[q][1] - cells[p][1], cells[q][0] - cells[p][0])))
+        leg = (f'<line x1="0" y1="0" x2="0" y2="6" stroke="{dark}" stroke-width="2.2" '
+               f'stroke-linecap="round"/>')
+        legs = (f'<g transform="translate(0 -6)">{rg(leg, "28;-28;28", 14)}'
+                f'{rg(leg, "-28;28;-28", -14)}</g>')
+        body = f'<rect x="-3" y="-12.5" width="6" height="7.5" rx="2.2" fill="{T["dusk"]}"/>'
+        head = (f'<circle cx="0" cy="-15.6" r="3.4" fill="{ink}"/>'
+                f'<path d="M-3.5 -15.8 a3.5 3.5 0 0 1 7 0 q-3.5 -1.6 -7 0z" fill="#4A392C"/>'
+                f'<circle cx="1.5" cy="-15" r=".6" fill="{T["bg"]}"/>')
+        band = (f'<line x1="-3.3" y1="-16.4" x2="3.3" y2="-16.4" stroke="{T["accent"]}" stroke-width="1.1"/>'
+                + f'<g transform="translate(-3.3 -16.4)">'
+                + rg(f'<path d="M0 0 q-4 -1 -6 1.4 M0 .6 q-4 1.6 -5.5 3.4" fill="none" '
+                     f'stroke="{T["accent"]}" stroke-width="1" stroke-linecap="round"/>',
+                     "-10;10;-10", 0, "0.5s") + '</g>')
+        weapon = (f'<line x1="0" y1="0" x2="4" y2="0" stroke="{T["dusk"]}" stroke-width="2" stroke-linecap="round"/>'
+                  f'<line x1="4" y1="-2" x2="4" y2="2" stroke="{T["accent"]}" stroke-width="1.3" stroke-linecap="round"/>'
+                  f'<line x1="4.5" y1="0" x2="14" y2="0" stroke="{ink}" stroke-width="1.5" stroke-linecap="round"/>')
+        arm = f'<g transform="translate(2.4 -10)">{rg(weapon, "-75;30;-75", -20)}</g>'
+        arc = ""
+        if animated:
+            arc = (f'<path d="M9 -17 Q19 -8 10 1" fill="none" stroke="{ink}" stroke-width="1.2" '
+                   f'stroke-linecap="round" opacity="0"><animate attributeName="opacity" '
+                   f'values="0;0;.95;0" keyTimes="0;.42;.58;1" dur=".36s" repeatCount="indefinite"/></path>')
+        figure = legs + body + head + band + arm + arc
+        if animated:
+            return (f'<g><animateTransform attributeName="transform" type="translate" '
+                    f'values="0 0;0 -1;0 0" dur=".36s" repeatCount="indefinite"/>{figure}</g>')
+        return figure
 
     timing = f'dur="{DUR}s" begin="{begin}s" repeatCount="indefinite"'
+    pts, flips, d_prev = [], [], 1
+    dirs = []
+    for j in range(N):
+        if j + 1 < N:
+            dx = cells[path[j + 1]][0] - cells[path[j]][0]
+            if dx:
+                d_prev = 1 if dx > 0 else -1
+        dirs.append(d_prev)
+    for st in range(S):
+        j = min(st, N - 1)
+        x, y = cells[path[j]][0] + cell / 2, cells[path[j]][1] + cell + 1
+        pts.append(f"{x:.1f} {y:.1f}")
+        flips.append("1 1" if dirs[j] > 0 else "-1 1")
+    last = round((N - 1) / (S - 1), 4)
+    walker = (f'<g opacity="0"><animateTransform attributeName="transform" type="translate" '
+              f'values="{";".join(pts)}" {timing}/>'
+              f'<animate attributeName="opacity" values="0;1;0" keyTimes="0;.0001;{last}" '
+              f'calcMode="discrete" {timing}/>'
+              f'<g><animateTransform attributeName="transform" type="scale" '
+              f'values="{";".join(flips)}" calcMode="discrete" {timing}/>{sprite(True)}</g></g>')
 
-    def segment(k):
-        pts = []
-        for st in range(S):
-            x, y = centre(path[min(max(st - k, 0), N - 1)])
-            pts.append(f"{x:.1f} {y:.1f}")
-        a_, b_ = round((k + 0.001) / S, 4), round((N + k) / S, 4)
-        r = radius(k)
-        inner = f'<circle r="{r:.1f}" fill="{colour(k)}"/>'
-        if k == 0:
-            angles = ";".join(str(heading(min(st, N - 1))) for st in range(S))
-            inner += (f'<g><animateTransform attributeName="transform" type="rotate" '
-                      f'values="{angles}" calcMode="discrete" {timing}/>{face(r, True)}</g>')
-        return (f'<g opacity="0"><animateTransform attributeName="transform" type="translate" '
-                f'values="{";".join(pts)}" {timing}/>'
-                f'<animate attributeName="opacity" values="0;1;0" keyTimes="0;{a_};{b_}" '
-                f'calcMode="discrete" {timing}/>{inner}</g>')
-
-    snake = "".join(segment(k) for k in reversed(range(L)))   # tail first, head on top
-
-    parked = []                                  # STATIC=1 screenshot: snake frozen mid-grid
-    for k in reversed(range(L)):
-        j = N // 3 - k
-        x, y = centre(path[j])
-        inner = f'<circle r="{radius(k):.1f}" fill="{colour(k)}"/>'
-        if k == 0:
-            inner += f'<g transform="rotate({heading(j)})">{face(radius(0), False)}</g>'
-        parked.append(f'<g transform="translate({x:.1f} {y:.1f})">{inner}</g>')
-    c.add(Card.dual(snake, "".join(parked) if STATIC else ""))
+    px_, py_ = cells[path[N // 3]][0] + cell / 2, cells[path[N // 3]][1] + cell + 1
+    parked = f'<g transform="translate({px_:.1f} {py_:.1f})">{sprite(False)}</g>' if STATIC else ""
+    c.add(Card.dual(walker, parked))
 
     last_m = -9
     for i, (d, _) in enumerate(days):
@@ -723,6 +736,9 @@ def card_graph(days, total, base):
     sw = "".join(f'<rect x="{lx + 10 + k * (cell + 4):.1f}" y="{ly:.1f}" width="{cell}" height="{cell}" rx="3" fill="{ramp[k]}"/>'
                  for k in range(5))
     c.add(c.g(sw, round(t0 + 0.5, 2)))
+    if updated:
+        c.add(c.text(40, round(ly + cell - 2, 1), f"Updated {updated}", "mono", 10, T["muted"],
+                     d=round(t0 + 0.5, 2)))
     c.add(c.text(lx + 16 + 5 * (cell + 4), ly + cell - 2, "More", "mono", 11, T["muted"], d=round(t0 + 0.5, 2)))
     return c
 
@@ -767,7 +783,12 @@ def main():
     cards += [card_about(t_about), card_stack(t_stack)]
     cards.append(card_chart(days, t_chart))
     cards += [card_repo(i, r, t_repos) for i, r in enumerate(repos)]
-    cards.append(card_graph(days, total, t_graph))
+    stamp = str(data.get("generated") or "")[:10] or days[-1][0].isoformat()
+    try:
+        stamp = dt.date.fromisoformat(stamp).strftime("%-d %b %Y")
+    except ValueError:
+        pass
+    cards.append(card_graph(days, total, t_graph, stamp))
 
     for c in cards:
         svg = c.render()
