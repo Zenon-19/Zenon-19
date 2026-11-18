@@ -2,7 +2,7 @@ name: cards
 
 on:
   schedule:
-    - cron: "17 0 * * *"        # daily, 00:17 UTC
+    - cron: "17 */6 * * *"       # every 6 hours
   workflow_dispatch:
   push:
     branches: [main]
@@ -64,6 +64,7 @@ jobs:
               recent: [$u.repositories.nodes[] | r]
             }' raw.json > data/contributions.json
           rm raw.json
+          echo "Fetched $(jq '.days | length' data/contributions.json) days, total $(jq .total data/contributions.json), latest day: $(jq -c '.days[-1]' data/contributions.json)"
 
       # 2. Render the cards (and README.md) from that data
       - name: Render cards
