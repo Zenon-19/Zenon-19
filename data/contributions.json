@@ -1,6 +1,6 @@
 {
   "login": "Zenon-19",
-  "generated": "2026-11-25T08:49:03Z",
+  "generated": "2026-11-25T21:49:24Z",
   "total": 67,
   "days": [
     {
@@ -1479,15 +1479,6 @@
   "pinned": [],
   "recent": [
     {
-      "name": "Zenon-19",
-      "description": "my personal repo",
-      "url": "https://github.com/Zenon-19/Zenon-19",
-      "stars": 0,
-      "forks": 0,
-      "language": "Python",
-      "color": "#3572A5"
-    },
-    {
       "name": "Luna-repo-",
       "description": "Orm / ERP — dashboard ",
       "url": "https://github.com/Zenon-19/Luna-repo-",
@@ -1495,6 +1486,15 @@
       "forks": 0,
       "language": "TypeScript",
       "color": "#3178c6"
+    },
+    {
+      "name": "Zenon-19",
+      "description": "my personal repo",
+      "url": "https://github.com/Zenon-19/Zenon-19",
+      "stars": 0,
+      "forks": 0,
+      "language": "Python",
+      "color": "#3572A5"
     },
     {
       "name": "toka-App-",
